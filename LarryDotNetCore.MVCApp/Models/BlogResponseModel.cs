@@ -1,4 +1,4 @@
-﻿namespace LarryDotNetCore.RestApi.Models
+﻿namespace LarryDotNetCore.MVCApp.Models
 {
     public class BlogListResponseModel
     {
@@ -15,6 +15,6 @@
 
         public string Message { get; set; }
 
-        public BlogDataModel Data {  get; set; }    
+        public BlogDataModel Data {  get; set; }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model List<BlogDataModel>
+
+@{
+    int count = 0;
+}
+
+<h1>
+    Hello, I'm Blog Index
+</h1>
+<p>
+    @Model.Count
+</p>
+<table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Content</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+      <td>@(++count)</td>
+      <td>@item.Blog_Title</td>
+      <td>@item.Blog_Author</td>
+      <td>@item.Blog_Content</td>
+    </tr>
+            
+        }
+  </tbody
+</table>
