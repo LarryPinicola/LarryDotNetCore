@@ -66,7 +66,7 @@ namespace LarryDotNetCore.RestApi.Controllers
             BlogResponseModel model = new BlogResponseModel()
             {
                 IsSuccess = result > 0,
-                Message = result > 0 ? "saving successful." : "saving fail.",
+                Message = result > 0 ? "successfully saved" : "saving fail.",
                 Data = blog,
             };
             return Ok(model);
@@ -89,7 +89,7 @@ namespace LarryDotNetCore.RestApi.Controllers
             BlogResponseModel model = new BlogResponseModel()
             {
                 IsSuccess = result > 0,
-                Message = result > 0 ? "Updating successful" : "Update Failed",
+                Message = result > 0 ? "sussessfully updated" : "Update Failed",
                 Data = item,
             };
             return Ok(model);

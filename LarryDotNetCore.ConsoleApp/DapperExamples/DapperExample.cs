@@ -18,10 +18,10 @@ namespace LarryDotNetCore.ConsoleApp.DapperExamples
         {
             sqlConnectionStringBuilder = new SqlConnectionStringBuilder
             {
-                DataSource = "DESKTOP-47QMMLG",
-                InitialCatalog = "Tbl_Blog",
+                DataSource = ".",
+                InitialCatalog = "LarryDotNetCore",
                 UserID = "sa",
-                Password = "sa@123"
+                Password = "sa@123",
             };
         }
 
