@@ -26,36 +26,37 @@ namespace Testing.RestApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBlog()
+        public IActionResult GetBlogs()
         {
             SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             connection.Open();
-            string query = "SELECT * FROM Tbl_Blog";
+            string query = "SELECT * FROM tbl_blog";
             SqlCommand cmd = new SqlCommand(query, connection);
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-            adapter.Fill(dt);
+            dataAdapter.Fill(dt);
             connection.Close();
 
             List<BlogDataModel> lst = new List<BlogDataModel>();
             foreach (DataRow row in dt.Rows)
             {
                 BlogDataModel item = new BlogDataModel();
-                item.Blog_Id = Convert.ToInt32(row["id"]);
-                item.Blog_Title = row["Blog_Title"].ToString();
-                item.Blog_Author = row["Blog_Author"].ToString();
-                item.Blog_Content = row["Blog_Content"].ToString();
+                item.Blog_Id = Convert.ToInt32(row["blog_id"]);
+                item.Blog_Title = Convert.ToString(row["blog_title"]);
+                item.Blog_Author = Convert.ToString(row["blog_authour"]);
+                item.Blog_Content = Convert.ToString(row["blog_content"]);
                 lst.Add(item);
             }
 
-            BlogListResponseModel model = new BlogListResponseModel
+            BlogListResponseModel model = new BlogListResponseModel()
             {
                 IsSuccess = true,
-                Message = "success",
+                Message = "Success",
                 Data = lst
             };
             return Ok(model);
         }
+
 
         [HttpGet("{id}")]
         public IActionResult EditBlog(int id)
@@ -65,11 +66,12 @@ namespace Testing.RestApi.Controllers
             string query = "SELECT * FROM Tbl_Blog WHERE Blog_Id = @Blog_Id";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@Blog_Id", id);
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             connection.Close();
 
+            List<BlogDataModel> lst = new List<BlogDataModel>();
             if (dt.Rows.Count == 0)
             {
                 var response = new { isSuccess = false, Message = "no data found" };
@@ -77,24 +79,34 @@ namespace Testing.RestApi.Controllers
             }
 
             DataRow row = dt.Rows[0];
-            BlogDataModel item = new BlogDataModel();
-            item.Blog_Id = Convert.ToInt32(row["id"]);
-            item.Blog_Title = row["Blog_Title"].ToString();
-            item.Blog_Author = row["Blog_Author"].ToString();
-            item.Blog_Content = row["Blog_Content"].ToString();
-            return Ok(item);
+            BlogDataModel item = new BlogDataModel
+            {
+                Blog_Id = Convert.ToInt32(row["Blog_Id"]),
+                Blog_Title = row["Blog_Title"].ToString(),
+                Blog_Author = row["Blog_Author"].ToString(),
+                Blog_Content = row["Blog_Content"].ToString(),
+            };
+
+            BlogListResponseModel model = new BlogListResponseModel()
+            {
+                IsSuccess = true,
+                Message = "success",
+                Data = lst
+            };
+            return Ok(model);
         }
 
         [HttpPost]
-        public IActionResult CreateBlog(int id, BlogDataModel blog)
+        public IActionResult CreateBlog(BlogDataModel blog)
         {
-            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            connection.Open();
             string query = @"INSERT INTO [dbo].[Tbl_Blog]
                            ([Blog_Title]
                            ,[Blog_Author]
                            ,[Blog_Content])
                             VALUES (@Blog_Title ,@Blog_Author ,@Blog_Content)";
+            SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
             cmd.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
@@ -118,6 +130,26 @@ namespace Testing.RestApi.Controllers
             connection.Open();
             string query = "SELECT * FROM tbl_blog WHERE Blog_Id = @Blog_Id";
             SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            connection.Close();
+
+            if (dt.Rows.Count == 0)
+            {
+                var response = new { isSuccess = false, Message = "no data found" };
+                return NotFound(response);
+            }
+
+            connection.Open();
+            query = @"UPDATE [dbo].[Tbl_Blog]
+                    SET [Blog_Title] = @Blog_Title
+                        ,[Blog_Author] = @Blog_Author
+                        ,[Blog_Content] = @Blog_Content
+                    WHERE Blog_Id = @Blog_Id";
+            cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@Blog_Id", id);
             cmd.Parameters.AddWithValue("@Blog_Title", blog.Blog_Title);
             cmd.Parameters.AddWithValue("@Blog_Author", blog.Blog_Author);
             cmd.Parameters.AddWithValue("@Blog_Content", blog.Blog_Content);
@@ -138,11 +170,10 @@ namespace Testing.RestApi.Controllers
         {
             SqlConnection connection = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             connection.Open();
-
             string query = "SELECT * FROM tbl_blog WHERE blog_id = @blog_id";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@Blog_Id", id);
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
             connection.Close();
@@ -198,6 +229,8 @@ namespace Testing.RestApi.Controllers
             string query = @"DELETE FROM [dbo].[Tbl_Blog] WHERE Blog_Id = @Blog_Id";
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@Blog_Id", id);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             int result = cmd.ExecuteNonQuery();
             connection.Close();
 
