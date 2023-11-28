@@ -30,7 +30,7 @@ namespace Testing.RestApi.Controllers
                 {
                     IsSuccess = false,
                     Message = ex.ToString(),//summary error
-                  //Message = ex.Message(), //detail error
+                                            //Message = ex.Message(), //detail error
                 });
             }
         }
@@ -49,27 +49,94 @@ namespace Testing.RestApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostBlog()
+        public IActionResult CreateBlog(BlogDataModel blog)
         {
-            return Ok("PostBlog");
+            AppDBContext db = new AppDBContext();
+            db.Blogs.Add(blog);
+            var result = db.SaveChanges();
+            BlogResponseModel model = new BlogResponseModel()
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "create successful" : "create fail",
+                Data = blog,
+            };
+            return Ok(model);
         }
 
-        [HttpPut]
-        public IActionResult PutBlog()
+        [HttpPut("{id}")]
+        public IActionResult PutBlog(int id, BlogDataModel blog)
         {
-            return Ok("PutBlog");
+            AppDBContext db = new AppDBContext();
+            var item = db.Blogs.FirstOrDefault(x => x.Blog_Id == id);
+            if (item is null)
+            {
+                var response = new { isSuccess = false, Message = "no data found" };
+                return NotFound(response);
+            }
+            item.Blog_Title = blog.Blog_Title;
+            item.Blog_Author = blog.Blog_Author;
+            item.Blog_Content = blog.Blog_Content;
+
+            var result = db.SaveChanges();
+            BlogResponseModel model = new BlogResponseModel()
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "Update successful" : "update fail",
+                Data = item
+            };
+            return Ok(model);
         }
 
-        [HttpPatch]
-        public IActionResult PatchBlog()
+        [HttpPatch("{id}")]
+        public IActionResult PatchBlog(int id, BlogDataModel blog)
         {
-            return Ok("PatchBlog");
+            AppDBContext db = new AppDBContext();
+            var item = db.Blogs.FirstOrDefault(x => x.Blog_Id == id);
+            if (item is null)
+            {
+                var response = new { isSuccess = false, Message = "no data found" };
+                return NotFound(response);
+            }
+            if (!string.IsNullOrEmpty(blog.Blog_Title))
+            {
+                item.Blog_Title = blog.Blog_Title;
+            }
+            if (!string.IsNullOrEmpty(blog.Blog_Author))
+            {
+                item.Blog_Author = blog.Blog_Author;
+            }
+            if (!string.IsNullOrEmpty(blog.Blog_Content))
+            {
+                item.Blog_Content = blog.Blog_Content;
+            }
+            var result = db.SaveChanges();
+            BlogResponseModel model = new BlogResponseModel()
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "patch successful" : "patch fail",
+                Data = item,
+            };
+            return Ok(model);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteBlog()
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlog(int id)
         {
-            return Ok("DeleteBlog");
+            AppDBContext db = new AppDBContext();
+            var item = db.Blogs.FirstOrDefault(x => x.Blog_Id == id);
+            if(item is null)
+            {
+                var response = new { isSuccess = false, Message = "no data found" };
+                return NotFound(response);
+            }
+            db.Blogs.Remove(item);
+            var result = db.SaveChanges();
+            BlogResponseModel model = new BlogResponseModel()
+            {
+                IsSuccess = result > 0,
+                Message = result > 0 ? "delete successful" : "delete fail",
+            };
+            return Ok(model);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace LarryDotNetCore.ConsoleApp.EFCoreExamples
         {
             Read();
             //Edit(1);
-            //Create("Apple", "SteveJobs", "Laptop");
+            Create("Apple", "SteveJobs", "Laptop");
             //Update(4, "update", "update", "update");
             //Delete(10);
         }
