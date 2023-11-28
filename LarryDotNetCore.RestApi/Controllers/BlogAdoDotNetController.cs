@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using LarryDotNetCore.RestApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using Testing.RestApi.Models;
 
 namespace Testing.RestApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogAdoController : ControllerBase
+    public class BlogAdoDotNetController : ControllerBase
     {
         private readonly SqlConnectionStringBuilder sqlConnectionStringBuilder;
 
-        public BlogAdoController()
+        public BlogAdoDotNetController()
         {
             sqlConnectionStringBuilder = new SqlConnectionStringBuilder
             {
