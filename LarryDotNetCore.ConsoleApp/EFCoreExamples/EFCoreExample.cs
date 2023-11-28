@@ -20,10 +20,10 @@ namespace LarryDotNetCore.ConsoleApp.EFCoreExamples
         public void Run()
         {
             Read();
-            Edit(1);
-            Create("eftext", "eftext", "eftext");
-            Update(1, "uptext","uptext","uptext");
-            Delete(1);
+            //Edit(1);
+            //Create("Apple", "SteveJobs", "Laptop");
+            //Update(4, "update", "update", "update");
+            //Delete(10);
         }
 
         #region Read
@@ -102,7 +102,7 @@ namespace LarryDotNetCore.ConsoleApp.EFCoreExamples
             }
             _dbContext.Blogs.Remove(blog);
             int result = _dbContext.SaveChanges();
-            string message = result > 0 ? "successfully updated" : "update fail";
+            string message = result > 0 ? "successfully deleted" : "delete fail";
             Console.WriteLine(message);
         }
         #endregion
