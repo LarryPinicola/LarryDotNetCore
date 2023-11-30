@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JQuery</title>
+  </head>
+
+  <body>
+    <h3 id="">Hello world</h3>
+    <p id="txtP">Hello</p>
+    <input type="text" name="" id="txtInp" value="hello2" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      const p3 = document.getElementById("txtP").innerHTML;
+      const p4 = document.getElementById("txtInp").value;
+
+      document.getElementById("txtP").innerHTML = "custom Hello";
+      //document.getElementById('txtInp').value = "new Hello2";
+
+      const p1 = $("#txtP").html();
+      const p2 = $("#txtInp").val();
+      $("txtInp").val("new Hello2");
+
+      console.log({ p1, p2, p3, p4 });
+    </script>
+  </body>
+</html>
