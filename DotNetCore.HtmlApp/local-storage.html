@@ -20,17 +20,26 @@
   </head>
 
   <body>
-    <label for="">User Name</label>
-    <input class="form-control" type="text" name="" id="txtUserName" />
-    <button id="btnCancel" class="btn btn-primary" type="button">Cancel</button>
-    <button id="btnSave" class="btn btn-primary" type="button">Save</button>
+    <h2 for="" class="text-center mb-3 text-primary">JQuery User Table</h2>
+    <div
+      class="mx-auto d-flex justify-content-around align-items-center w-75 mb-5"
+    >
+      <input class="form-control w-75" type="text" name="" id="txtUserName" />
+      <!-- btns -->
+      <div class="d-flex p-1 justify-content-around w-25">
+        <button id="btnCancel" class="btn btn-danger" type="button">
+          Cancel
+        </button>
+        <button id="btnSave" class="btn btn-success" type="button">Save</button>
+      </div>
+    </div>
 
-    <table class="table">
+    <table class="table w-75 text-center mx-auto">
       <thead>
         <tr>
-          <th id="" scope="col">Actions</th>
           <th scope="col">No</th>
           <th scope="col">User</th>
+          <th id="" scope="col">Actions</th>
         </tr>
       </thead>
       <tbody id="tblBody"></tbody>
@@ -113,7 +122,9 @@
           console.log(index + ": " + value.UserName);
           htmlString += `
             <tr>
-                <td>
+                <td>${index + 1}</td>
+                <td>${value.UserName}</td>
+                <td class="">
                     <button type="button" class="btn btn-warning" onclick="editUser('${
                       value.UserId
                     }')">
@@ -125,8 +136,6 @@
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </td>
-                <td>${index + 1}</td>
-                <td>${value.UserName}</td>
             </tr>`;
         });
         $("#tblBody").html(htmlString);
