@@ -86,8 +86,7 @@
         users.push(user);
         localStorage.setItem("tbl_user", JSON.stringify(users));
         successMessage("Saving Successful");
-        $("#txtUserName").val("");
-        $("#txtUserName").focus();
+        clear();
         readUser();
       }
 
@@ -100,8 +99,7 @@
         localStorage.setItem("tbl_user", JSON.stringify(users));
         successMessage("Update successful");
         _userId = null;
-        $("#txtUserName").val("");
-        $("#txtUserName").focus();
+        clear();
         readUser();
       }
 
@@ -170,8 +168,7 @@
           localStorage.setItem("tbl_user", JSON.stringify(users));
           successMessage("Delete Successful!");
           _userId = null;
-          $("#txtUserName").val("");
-          $("txtUserName").focus();
+          clear();
           readUser();
         });
       }
