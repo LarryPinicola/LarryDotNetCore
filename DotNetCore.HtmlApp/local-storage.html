@@ -10,6 +10,13 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -148,11 +155,11 @@
         $("#txtUserName").focus();
       });
 
-      function deleteUser() {
-        console.log(UserId);
+      function deleteUser(userId) {
+        console.log(userId);
         confirmMessage("Are you sure want to delete?").then((result) => {
           if (!result) return;
-          _userId = UserId;
+          _userId = userId;
           let users = getUser();
           let user = users.filter((x) => x.UserId == _userId)[0];
           if (user === undefined || user === null) {
