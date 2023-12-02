@@ -44,19 +44,27 @@ function confirmMessage(message) {
 function notiflixConfirm(message) {
   return new Promise((resolve, result) => {
     Notiflix.Confirm.show(
-      'Notiflix Confirm',
-      'Do you agree with me?',
-      'Yes',
-      'No',
-      function okCb() { resolve(true) },
-      function cancelCb() { resolve(false) },
-      {
+      "Notiflix Confirm",
+      "Do you agree with me?",
+      "Yes",
+      "No",
+      function okCb() {
+        resolve(true);
       },
+      function cancelCb() {
+        resolve(false);
+      },
+      {}
     );
-  })
+  });
 }
 
 function clear() {
   $("#txtUserName").val("");
   $("#txtUserName").focus();
+}
+
+//Notiflix notification
+function notiMessage() {
+  Notiflix.Notify.success("Save Successful");
 }

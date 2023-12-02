@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ladda UI</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/ladda.min.css"
+      integrity="sha512-ErqLOKlca4eyyHE/Kl6PVKK3sIuCzi17hm+QQ6n4jVczFz2MruewoZjvjZnU8k+MDGtVZknbTp1Dd7zguSe5aw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <button class="ladda-button" data-style="zoom-in" id="laddaBtn">
+      <span class="ladda-label">Submit</span>
+    </button>
+
+    <!-- spin.js -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/spin.min.js"
+      integrity="sha512-fgSmjQtBho/dzDJ+79r/yKH01H/35//QPPvA2LR8hnBTA5bTODFncYfSRuMal78C08vUa93q3jyxPa273cWzqA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- jQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/ladda.min.js"
+      integrity="sha512-hZL8cWjOAFfWZza/p0uD0juwMeIuyLhAd5QDodiK4sBp1sG7BIeE1TbMGIbnUcUgwm3lVSWJzBK6KxqYTiDGkg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $("#laddaBtn").click(function () {
+        var l = Ladda.create(this);
+        l.start();
+        setTimeout(() => {
+          l.stop();
+        }, 3000);
+      });
+    </script>
+  </body>
+</html>
