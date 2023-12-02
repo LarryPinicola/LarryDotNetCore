@@ -8,6 +8,6 @@
 
 `dateTimePicker` - https://fengyuanchen.github.io/datepicker/ https://github.com/fengyuanchen/datepicker/blob/master/README.md
 
-`radioCheckBox` - https://bantikyan.github.io/icheck-bootstrap/ https://cdnjs.com/libraries/icheck-bootstrap
+`radioCheckBox` - https://bantikyan.github.io/icheck-bootstrap/ https://cdnjs.com/libraries/icheck-bootstrap https://github.com/bantikyan/icheck-bootstrap
 
 `toast` - https://github.com/apvarun/toastify-js/blob/master/README.md https://apvarun.github.io/toastify-js/#
