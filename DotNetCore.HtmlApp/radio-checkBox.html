@@ -13,6 +13,34 @@
     />
   </head>
   <body>
-    <script></script>
+    <!-- checkbox -->
+    <div class="icheck-danger">
+      <input type="checkbox" id="someCheckboxId" />
+      <label for="someCheckboxId">Click to check</label>
+    </div>
+
+    <!-- radio Checkbox -->
+    <div class="icheck-success">
+      <input type="radio" id="someRadioId1" name="someGroupName" />
+      <label for="someRadioId1">Option 1</label>
+    </div>
+    <div class="icheck-warning">
+      <input type="radio" id="someRadioId2" name="someGroupName" />
+      <label for="someRadioId2">Option 2</label>
+    </div>
+
+    <button id="submitBtn" class="text-bg-danger">Get Value</button>
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $("#submitBtn").click(function () {
+        console.log($("#someCheckboxId").is(":checked"));
+      });
+    </script>
   </body>
 </html>
