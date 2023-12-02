@@ -107,7 +107,7 @@ namespace LarryDotNetCore.RestApi.Controllers
         {
             string query = "SELECT * FROM tbl_blog WHERE Blog_Id = @Blog_Id";
             using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
-            BlogDataModel? item = db.Query<BlogDataModel?>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
+            BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
             if (item is null)
             {
                 var response = new { IsSuccess = false, Message = "no data found" };
@@ -150,26 +150,26 @@ namespace LarryDotNetCore.RestApi.Controllers
             return Ok(model);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteBlog(int id)
         {
-            string query = "DELETE * FROM tbl_blog WHERE Blog_Id = @Blog_Id";
+            string query = "SELECT * FROM tbl_blog WHERE Blog_Id = @Blog_Id";
             using IDbConnection db = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
             if (item is null)
             {
-                var response = new { isSuccess = false, Message = "no data found" };
+                var response = new { IsSuccess = false, Message = "No Data Found" },
                 return NotFound(response);
             }
-            query = @"DELETE FROM [dbo].[Tbl_Blog]
-                            WHERE Blog_Id = @Blog_Id";
+
+            query = @"DELETE FROM [dbo].[Tbl_Blog] WHERE Blog_Id = @Blog_Id";
             using IDbConnection db2 = new SqlConnection(sqlConnectionStringBuilder.ConnectionString);
             int result = db2.Execute(query, new BlogDataModel { Blog_Id = id });
             BlogResponseModel model = new BlogResponseModel()
             {
                 IsSuccess = result > 0,
-                Message = result > 0 ? "delete successuful" : "delete fail"
-            };
+                Message = result > 0 ? "Delete successful" : "Delete failed",
+            }
             return Ok(model);
         }
     }
