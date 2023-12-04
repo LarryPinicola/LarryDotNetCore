@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MinimalApi"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MVCApp", "LarryDotNetCore.MVCApp\LarryDotNetCore.MVCApp.csproj", "{E29DF05A-A3C4-4CFA-8629-3D48EFFA979E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.RestApi", "Testing.RestApi\Testing.RestApi.csproj", "{DA409169-EBAA-4804-9C2D-C6965547D58E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.RestApi", "Testing.RestApi\Testing.RestApi.csproj", "{DA409169-EBAA-4804-9C2D-C6965547D58E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingDotNetCore.MVCApp", "TestingDotNetCore.MVCApp\TestingDotNetCore.MVCApp.csproj", "{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
