@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MVCApp", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.RestApi", "Testing.RestApi\Testing.RestApi.csproj", "{DA409169-EBAA-4804-9C2D-C6965547D58E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingDotNetCore.MVCApp", "TestingDotNetCore.MVCApp\TestingDotNetCore.MVCApp.csproj", "{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingDotNetCore.MVCApp", "TestingDotNetCore.MVCApp\TestingDotNetCore.MVCApp.csproj", "{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{C868078E-2D6B-40C2-92D9-705C08471F4B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
