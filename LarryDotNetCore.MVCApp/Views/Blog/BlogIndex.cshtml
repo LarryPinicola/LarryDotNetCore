@@ -30,6 +30,7 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Content</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -40,6 +41,14 @@
                 <td>@item.Blog_Title</td>
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
+                <td>
+                    <a class="btn btn-warning" href="/blog/edit/@item.Blog_Id">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger" href="/blog/delete/@item.Blog_Id">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
             </tr>
 
         }
