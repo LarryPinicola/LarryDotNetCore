@@ -1,8 +1,7 @@
-﻿@model List<BlogDataModel>
+﻿@model BlogDataResponseModel
 @{
     //Layout = "_Layout";
     ViewData["Title"] = "Blog Index";
-    int count = 0;
     string message = null;
     bool isSuccess = false;
     if (TempData["Message"] != null)
@@ -10,6 +9,11 @@
         message = TempData["Message"].ToString();
         isSuccess = Convert.ToBoolean(TempData["IsSuccess"]);
     }
+    int pageNo = Model.PageSetting.PageNo;
+    int pageSize = Model.PageSetting.PageSize;
+    int pageCount = Model.PageSetting.PageCount;
+    int count = (pageNo - 1) * pageSize;
+    string url = Model.PageSetting.PageUrl;
 }
 
 <h3>
@@ -34,7 +38,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Blogs)
         {
             <tr>
                 <th scope="row">@(++count)</th>
@@ -50,7 +54,8 @@
                     </a>
                 </td>
             </tr>
-
         }
     </tbody>
 </table>
+
+@await Html.PartialAsync("_Pagination", Model.PageSetting)

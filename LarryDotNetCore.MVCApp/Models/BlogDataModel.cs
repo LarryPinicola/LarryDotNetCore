@@ -19,6 +19,34 @@ namespace LarryDotNetCore.MVCApp.Models
 
         public string? Blog_Author { get; set; }
 
-        public string? Blog_Content {  get; set; }
+        public string? Blog_Content { get; set; }
+    }
+
+    public class BlogDataResponseModel
+    {
+        public PageSettingModel PageSetting { get; set; }
+        public List<BlogDataModel> Blogs { get; set; }
+    }
+
+    public class PageSettingModel
+    {
+        public PageSettingModel()
+        {
+        }
+        public PageSettingModel(int pageNo, int pageSize, int pageCount, string pageUrl)
+        {
+            pageNo = pageNo;
+            pageSize = pageSize;
+            pageCount = pageCount;
+            PageUrl = PageUrl;
+        }
+
+        public int PageNo { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int PageCount { get; set; }
+
+        public string PageUrl { get; set; }
     }
 }
