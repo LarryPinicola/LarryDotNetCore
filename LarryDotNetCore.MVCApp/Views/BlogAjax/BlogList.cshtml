@@ -1,0 +1,61 @@
+﻿@model BlogDataResponseModel
+@{
+    //Layout = "_Layout";
+    ViewData["Title"] = "Blog Index";
+    string message = null;
+    bool isSuccess = false;
+    if (TempData["Message"] != null)
+    {
+        message = TempData["Message"].ToString();
+        isSuccess = Convert.ToBoolean(TempData["IsSuccess"]);
+    }
+    int pageNo = Model.PageSetting.PageNo;
+    int pageSize = Model.PageSetting.PageSize;
+    int pageCount = Model.PageSetting.PageCount;
+    int count = (pageNo - 1) * pageSize;
+    string url = Model.PageSetting.PageUrl;
+}
+
+<h3>
+    Blog List <a href="/blog/create" type="button" class="btn btn-success">
+        Create <i class="fa-solid fa-plus"></i>
+    </a>
+</h3>
+
+@if (message is not null)
+{
+    <div class="alert alert-@(isSuccess ? "success":"danger")" role="alert">@message</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Content</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Blogs)
+        {
+            <tr>
+                <th scope="row">@(++count)</th>
+                <td>@item.Blog_Title</td>
+                <td>@item.Blog_Author</td>
+                <td>@item.Blog_Content</td>
+                <td>
+                    <a class="btn btn-warning" href="/blog/edit/@item.Blog_Id">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger" href="/blog/delete/@item.Blog_Id">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+ 
+@await Html.PartialAsync("_Pagination", Model.PageSetting) 
