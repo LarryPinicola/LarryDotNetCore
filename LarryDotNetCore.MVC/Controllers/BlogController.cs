@@ -20,5 +20,12 @@ namespace LarryDotNetCore.MVC.Controllers
             List<BlogDataModel> lst = _context.Blogs.ToList();
             return View("BlogIndex", lst);
         }
+
+        // CREATE 
+        [ActionName("Create")]
+        public IActionResult BlogCreate()
+        {
+            return View("BlogCrete");
+        };
     }
 }
