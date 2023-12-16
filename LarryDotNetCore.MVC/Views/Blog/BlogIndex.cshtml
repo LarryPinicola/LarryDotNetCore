@@ -1,9 +1,21 @@
 ﻿@model List<BlogDataModel>
 @{
     ViewData["Title"] = "Blog Index";
-    int count = 0;
     string message = null;
     bool isSuccess = false;
+    if (TempData["Message"] != null)
+    {
+        message = TempData["Message"].ToString();
+        isSuccess = Convert.ToBoolean(TempData["IsSuccess"]);
+    }
+    int count = 0;
+}
+
+@if (message is not null)
+{
+    <div class="alert alert-@(isSuccess ? "success":"danger")" role="alert">
+        @message
+    </div>
 }
 
 <div class="d-flex justify-content-between my-3">
@@ -25,6 +37,7 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Content</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +48,14 @@
                 <td>@item.Blog_Title</td>
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
+                <td>
+                    <a class="btn btn-warning" href="/blog/edit/@item.Blog_Id">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger" href="/blog/delete/@item.Blog_Id">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
             </tr>
         }
     </tbody>
