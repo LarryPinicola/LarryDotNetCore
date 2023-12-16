@@ -25,7 +25,20 @@ namespace LarryDotNetCore.MVC.Controllers
         [ActionName("Create")]
         public IActionResult BlogCreate()
         {
-            return View("BlogCrete");
-        };
+            return View("BlogCreate");
+        }
+
+        [HttpPost]
+        [ActionName("Save")]
+        public async Task<IActionResult> BlogSave(BlogDataModel reqModel)
+        {
+            await _context.Blogs.AddAsync(reqModel);
+            var result = await _context.SaveChangesAsync();
+            TempData["Message"] = result > 0 ? "Saving Successful" : "Saving Failed";
+            TempData["IsSuccess"] = result > 0;
+            return Redirect("/blog");
+        }
+
+
     }
 }
