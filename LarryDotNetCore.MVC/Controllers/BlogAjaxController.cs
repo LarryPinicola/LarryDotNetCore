@@ -52,5 +52,58 @@ namespace LarryDotNetCore.MVC.Controllers
             MessageModel model = new MessageModel(message, result > 0);
             return Json(model);
         }
+
+        [HttpGet]
+        [ActionName("Edit")]
+        public async Task<IActionResult> BlogEdit(int id)
+        {
+            var blog = await _context.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (blog is null)
+            {
+                TempData["Message"] = "No data found";
+                TempData["IsSuccess"] = false;
+                return Redirect("/blogajax/list");
+            }
+            return View("BlogEdit", blog);
+        }
+
+        [HttpPost]
+        [ActionName("Update")]
+        public async Task<IActionResult> BlogUpdate(int id, BlogDataModel reqModel)
+        {
+            var blog = await _context.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
+            if (blog is not null)
+            {
+                blog.Blog_Title = reqModel.Blog_Title;
+                blog.Blog_Author = reqModel.Blog_Author;
+                blog.Blog_Content = reqModel.Blog_Content;
+
+                var result = await _context.SaveChangesAsync();
+                string message = result > 0 ? "Update Successful." : "Update Failed.";
+                TempData["Message"] = message;
+                TempData["IsSuccess"] = result > 0;
+                MessageModel model = new MessageModel(message, result > 0);
+                return Json(model);
+            }
+            return Json(new MessageModel("No data found", false));
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> BlogDelete(BlogDataModel reqModel)
+        {
+            BlogDataModel? blog = await _context.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == reqModel.Blog_Id);
+            if (blog is null)
+            {
+                return Json(new MessageModel("No data found", false));
+            }
+            _context.Blogs.Remove(blog);
+            var result = await _context.SaveChangesAsync();
+            string message = result > 0 ? "Update Successful." : "Update Failed.";
+            TempData["Message"] = message;
+            TempData["IsSuccess"] = result > 0;
+            MessageModel model = new MessageModel(message, result > 0);
+            return Json(model);
+        }
     }
 }
