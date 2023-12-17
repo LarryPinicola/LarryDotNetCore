@@ -38,7 +38,7 @@ namespace LarryDotNetCore.MVC.Controllers
                 pageCount++;
             }
             model.Blogs = lst;
-            model.PageSetting = new PageSettingModel(pageNo, pageSize, pageCount);
+            model.PageSetting = new PageSettingModel(pageNo, pageSize, pageCount, "/blog/list");
             return View("BlogList", model);
         }
 

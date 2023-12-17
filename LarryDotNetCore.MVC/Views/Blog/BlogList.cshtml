@@ -12,6 +12,7 @@
     int pageNo = Model.PageSetting.PageNo;
     int pageSize = Model.PageSetting.PageSize;
     int pageCount = Model.PageSetting.PageCount;
+    string url = Model.PageSetting.PageUrl;
     int count = (pageNo - 1) * pageSize;
 }
 
@@ -64,23 +65,8 @@
         }
     </tbody>
 </table>
-<nav aria-label="...">
-    <ul class="pagination">
-        @for (int i = 1; i <= pageCount; i++)
-        {
-            if (pageNo == i)
-            {
-                <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="#">@i</a>
-                </li>
-            }
-            else
-            {
-                <li class="page-item"><a class="page-link" href="/blog/list?pageNo=@i&pageSize=@pageSize">@i</a></li>
-            }
-        }
-    </ul>
-</nav>
+@* pagination using partial view *@
+@await Html.PartialAsync("_Pagination", Model.PageSetting);
 
 @section scripts {
     <script>
