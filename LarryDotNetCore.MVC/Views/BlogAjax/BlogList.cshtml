@@ -54,10 +54,10 @@
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
                 <td>
-                    <a class="btn btn-warning" href="/blog/edit/@item.Blog_Id">
+                    <a class="btn btn-warning" href="/blogajax/edit/@item.Blog_Id">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a class="btn btn-danger" href="/blog/delete/@item.Blog_Id">
+                    <a class="btn btn-danger btnDelete" href="#" data-blog-id="@item.Blog_Id">
                         <i class="fa-solid fa-trash"></i>
                     </a>
                 </td>
@@ -67,3 +67,30 @@
 </table>
 @* pagination using partial view *@
 @await Html.PartialAsync("_Pagination", Model.PageSetting);
+@section scripts {
+    <script>
+        $('#btnDelete').click(function () {
+            var _reqModel = {
+                blog_Id: $(this).data('blog_id'),
+            }
+            confirmMessage("You Sure U Wanna Delete?").then((result) => {
+                if (!result) return;
+                $ajax({
+                    url: '/blogajax/delete',
+                    type: 'POST',
+                    data: {
+                        reqModel = _reqModel,
+                    },
+                    success: function (data) {
+                        l.stop();
+                        showMessage(data, "/blogajax/list");
+                    },
+                    error: function (request, status, error) {
+                        console.log({ request, status, error });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
