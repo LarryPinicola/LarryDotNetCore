@@ -25,12 +25,12 @@ namespace LarryDotNetCore.MVC.Models
         public PageSettingModel()
         {
         }
-        public PageSettingModel(int pageNo, int pageSize, int pageCount, string pageUrl)
+        public PageSettingModel(int pageNo, int pageSize, int pageCount)
         {
             PageNo = pageNo;
             PageSize = pageSize;
             PageCount = pageCount;
-            PageUrl = pageUrl;
+            //PageUrl = pageUrl;
         }
 
         public int PageNo { get; set; }
