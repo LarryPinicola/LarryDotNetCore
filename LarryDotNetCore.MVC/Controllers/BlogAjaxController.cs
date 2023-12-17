@@ -52,58 +52,5 @@ namespace LarryDotNetCore.MVC.Controllers
             MessageModel model = new MessageModel(message, result > 0);
             return Json(model);
         }
-
-        [HttpGet]
-        [ActionName("Edit")]
-        public async Task<IActionResult> BlogEdit(int id)
-        {
-            var blog = await _context.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
-            if (blog is null)
-            {
-                TempData["Message"] = "No Data Found";
-                TempData["IsSuccess"] = false;
-                return View("/blogajax/list");
-            }
-            return View("BlogEdit", blog);
-        }
-
-        [HttpPost]
-        [ActionName("Update")]
-        public async Task<IActionResult> BlogUpdate(int id, BlogDataModel reqModel)
-        {
-            var blog = await _context.Blogs.AsNoTracking().FirstOrDefaultAsync(x => x.Blog_Id == id);
-            if (blog is not null)
-            {
-                blog.Blog_Title = reqModel.Blog_Title;
-                blog.Blog_Author = reqModel.Blog_Author;
-                blog.Blog_Content = reqModel.Blog_Content;
-                _context.Blogs.Update(blog);
-                var result = await _context.SaveChangesAsync();
-                string message = result > 0 ? "Updating Successful" : "Updating Failed";
-                TempData["Message"] = message;
-                TempData["IsSuccess"] = result > 0;
-                MessageModel model = new MessageModel(message, result > 0);
-                return Json(model);
-            }
-            return Json(new MessageModel("No data Found", false));
-        }
-
-        [HttpPost]
-        [ActionName("Delete")]
-        public async Task<IActionResult> BlogDelete(BlogDataModel reqModel)
-        {
-            BlogDataModel? blog = await _context.Blogs.FirstOrDefaultAsync(x => x.Blog_Id == reqModel.Blog_Id);
-            if (blog is null)
-            {
-                return Json(new MessageModel("No data Found", false));
-            }
-            _context.Blogs.Remove(blog);
-            var result = _context.SaveChanges();
-            string message = result > 0 ? "Deleting Successful" : "Deleting Failed";
-            TempData["Message"] = message;
-            TempData["IsSuccess"] = result > 0;
-            MessageModel model = new MessageModel(message, result > 0);
-            return Json(model);
-        }
     }
 }
