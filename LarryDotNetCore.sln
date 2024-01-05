@@ -9,10 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.RestApi", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MinimalApi", "LarryDotNetCore.MinimalApi\LarryDotNetCore.MinimalApi.csproj", "{215C71BC-A3E6-422C-B29E-26E16E3D851A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing.RestApi", "Testing.RestApi\Testing.RestApi.csproj", "{DA409169-EBAA-4804-9C2D-C6965547D58E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestingDotNetCore.MVCApp", "TestingDotNetCore.MVCApp\TestingDotNetCore.MVCApp.csproj", "{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{C868078E-2D6B-40C2-92D9-705C08471F4B}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -20,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MVCApp", "LarryDotNetCore.MVC\LarryDotNetCore.MVCApp.csproj", "{AD34AD16-6195-4A47-B9B5-324BEF52786A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LarryDotNetCore.ThemeMVCApp", "dotNetCoreThemeMVC\LarryDotNetCore.ThemeMVCApp.csproj", "{B5E75716-36BB-4FB1-A023-52914DA0EB41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.ThemeMVCApp", "dotNetCoreThemeMVC\LarryDotNetCore.ThemeMVCApp.csproj", "{B5E75716-36BB-4FB1-A023-52914DA0EB41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,14 +36,6 @@ Global
 		{215C71BC-A3E6-422C-B29E-26E16E3D851A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215C71BC-A3E6-422C-B29E-26E16E3D851A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215C71BC-A3E6-422C-B29E-26E16E3D851A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA409169-EBAA-4804-9C2D-C6965547D58E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA0EE17F-9763-45ED-9C0F-FDF6EE38C278}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD34AD16-6195-4A47-B9B5-324BEF52786A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD34AD16-6195-4A47-B9B5-324BEF52786A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD34AD16-6195-4A47-B9B5-324BEF52786A}.Release|Any CPU.ActiveCfg = Release|Any CPU
