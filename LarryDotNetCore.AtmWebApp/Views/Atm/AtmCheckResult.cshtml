@@ -1,0 +1,15 @@
+﻿@model AtmDataModel
+
+<h3>Check Result</h3>
+
+@if (Model != null)
+{
+    <p>Card Number: @Model.CardNum</p>
+    <p>Balance: @Model.Balance $</p>
+}
+else
+{
+    <p>Card not found or invalid Card Number/Pin.</p>
+}
+
+<p><a href="/atm" class="text-decoration-none">Back</a></p>
