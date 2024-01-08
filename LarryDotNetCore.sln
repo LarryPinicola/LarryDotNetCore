@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.ThemeMVCApp", "dotNetCoreThemeMVC\LarryDotNetCore.ThemeMVCApp.csproj", "{B5E75716-36BB-4FB1-A023-52914DA0EB41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LarryDotNetCore.MVCApp", "LarryDotNetCore.MVCApp\LarryDotNetCore.MVCApp.csproj", "{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MVCApp", "LarryDotNetCore.MVCApp\LarryDotNetCore.MVCApp.csproj", "{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LarryDotNetCore.AtmWebApp", "LarryDotNetCore.AtmWebApp\LarryDotNetCore.AtmWebApp.csproj", "{28706EE6-0F82-4D5F-B19F-64560575FDA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28706EE6-0F82-4D5F-B19F-64560575FDA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28706EE6-0F82-4D5F-B19F-64560575FDA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28706EE6-0F82-4D5F-B19F-64560575FDA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28706EE6-0F82-4D5F-B19F-64560575FDA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
