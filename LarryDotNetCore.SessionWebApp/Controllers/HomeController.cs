@@ -15,6 +15,11 @@ namespace LarryDotNetCore.SessionWebApp.Controllers
 
         public IActionResult Index()
         {
+            var str = HttpContext.Session.GetString("LoginData");
+            if (str is null)
+            {
+                return Redirect("/login");
+            }
             return View();
         }
 

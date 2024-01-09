@@ -1,5 +1,6 @@
 ﻿using LarryDotNetCore.SessionWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LarryDotNetCore.SessionWebApp.Controllers
 {
@@ -13,8 +14,10 @@ namespace LarryDotNetCore.SessionWebApp.Controllers
         [HttpPost]
         public IActionResult Index(LoginViewModel reqModel)
         {
+            //Logic
 
-            return View();
+            HttpContext.Session.SetString("LoginData", JsonConvert.SerializeObject(reqModel));
+            return Redirect("/home");
         }
     }
 }
