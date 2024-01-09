@@ -158,7 +158,7 @@ namespace LarryDotNetCore.RestApi.Controllers
             BlogDataModel? item = db.Query<BlogDataModel>(query, new BlogDataModel { Blog_Id = id }).FirstOrDefault();
             if (item is null)
             {
-                var response = new { IsSuccess = false, Message = "No Data Found" },
+                var response = new { IsSuccess = false, Message = "No Data Found" };
                 return NotFound(response);
             }
 
@@ -169,7 +169,7 @@ namespace LarryDotNetCore.RestApi.Controllers
             {
                 IsSuccess = result > 0,
                 Message = result > 0 ? "Delete successful" : "Delete failed",
-            }
+            };
             return Ok(model);
         }
     }

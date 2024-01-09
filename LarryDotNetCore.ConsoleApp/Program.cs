@@ -2,6 +2,7 @@
 using LarryDotNetCore.ConsoleApp.AdoDotNetExamples;
 using LarryDotNetCore.ConsoleApp.DapperExamples;
 using LarryDotNetCore.ConsoleApp.EFCoreExamples;
+using LarryDotNetCore.ConsoleApp.HttpClientExamples;
 
 Console.WriteLine("Hello, World!");
 
@@ -11,7 +12,13 @@ Console.WriteLine("Hello, World!");
 //DapperExample dapper = new DapperExample();
 //dapper.Run();
 
-EFCoreExample eFCore = new EFCoreExample();
-eFCore.Run();
+//EFCoreExample eFCore = new EFCoreExample();
+//eFCore.Run();
+
+Console.WriteLine("Please Wait For Api");
+Console.ReadKey();
+
+HttpClientExample httpClientExample = new HttpClientExample();
+httpClientExample.Run();
 
 Console.ReadKey();
