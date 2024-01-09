@@ -8,6 +8,11 @@ namespace LarryDotNetCore.SessionWebApp.Controllers
     {
         public IActionResult Index()
         {
+            var str = HttpContext.Session.GetString("LoginData");
+            if (str != null)
+            {
+                return Redirect("/home");
+            }
             return View();
         }
 
@@ -17,7 +22,7 @@ namespace LarryDotNetCore.SessionWebApp.Controllers
             //Logic
 
             HttpContext.Session.SetString("LoginData", JsonConvert.SerializeObject(reqModel));
-            return Redirect("/home");
+            return Redirect("/");
         }
     }
 }
