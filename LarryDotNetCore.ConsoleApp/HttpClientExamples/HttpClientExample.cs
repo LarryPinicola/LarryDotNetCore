@@ -16,6 +16,8 @@ namespace LarryDotNetCore.ConsoleApp.HttpClientExamples
         {
             await Read();
             await Edit(9);
+            await Create("ookay", "six", "text");
+            await Update(5, "let", "me", "in");
         }
 
         public async Task Read()
@@ -54,7 +56,7 @@ namespace LarryDotNetCore.ConsoleApp.HttpClientExamples
             {
                 string JsonStr = await response.Content.ReadAsStringAsync();
                 var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
-                Console.WriteLine(model.Message);
+                Console.WriteLine(model!.Message);
             }
         }
 
@@ -74,7 +76,51 @@ namespace LarryDotNetCore.ConsoleApp.HttpClientExamples
             {
                 string JsonStr = await response.Content.ReadAsStringAsync();
                 var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                await Console.Out.WriteLineAsync(model!.Message);
+            }
+        }
+
+        public async Task Update(int id, string title, string author, string content)
+        {
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Title = title,
+                Blog_Author = author,
+                Blog_Content = content
+            };
+            string jsonBlog = JsonConvert.SerializeObject(blog);
+            HttpContent httpContent = new StringContent(jsonBlog, Encoding.UTF8, Application.Json);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PutAsync($"https://localhost:7091/api/blog/{id}", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
                 await Console.Out.WriteLineAsync(model.Message);
+            }
+            else
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                Console.WriteLine(model!.Message);
+            }
+        }
+
+        public async Task Delete(int id)
+        {
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.DeleteAsync($"https://localhost:7091/api/blog/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                await Console.Out.WriteLineAsync(model!.Message);
+            }
+            else
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                await Console.Out.WriteLineAsync(model!.Message);
             }
         }
     }
