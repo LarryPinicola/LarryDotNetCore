@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LarryDotNetCore.ConsoleApp.HttpClientExamples
 {
@@ -57,9 +58,24 @@ namespace LarryDotNetCore.ConsoleApp.HttpClientExamples
             }
         }
 
-        public async Task Create()
+        public async Task Create(string title, string author, string content)
         {
-
+            BlogDataModel blog = new BlogDataModel
+            {
+                Blog_Title = title,
+                Blog_Author = author,
+                Blog_Content = content
+            };
+            string jsonBlog = JsonConvert.SerializeObject(blog);
+            HttpContent httpContent = new StringContent(jsonBlog, Encoding.UTF8, Application.Json);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync("https://localhost:7091/api/blog/", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                await Console.Out.WriteLineAsync(model.Message);
+            }
         }
     }
 }
