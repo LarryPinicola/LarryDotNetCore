@@ -14,7 +14,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(connectionString);
 }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
-#region 
+#region
 //RefitConfiguration
 builder.Services.AddRefitClient<IBlogApi>()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration.GetSection("RestApiUrl").Value!));
