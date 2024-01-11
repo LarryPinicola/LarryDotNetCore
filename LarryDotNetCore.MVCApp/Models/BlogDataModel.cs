@@ -28,6 +28,24 @@ namespace LarryDotNetCore.MVCApp.Models
         public List<BlogDataModel> Blogs { get; set; }
     }
 
+    public class BlogListResponseModel
+    {
+        public string Message { get; set; }
+
+        public int IsSuccess { get; set; }
+
+        public List<BlogDataModel> Blogs { get; set; }
+    }
+
+    public class BlogResponseModel
+    {
+        public string Message { get; set; }
+
+        public bool IsSuccess { get; set; }
+
+        public BlogDataModel Data { get; set; }
+    }
+
     public class PageSettingModel
     {
         public PageSettingModel()

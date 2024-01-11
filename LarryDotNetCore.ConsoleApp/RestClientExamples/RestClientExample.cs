@@ -113,7 +113,7 @@ namespace LarryDotNetCore.ConsoleApp.RestClientExamples
 
         public async Task Delete(int id)
         {
-            RestRequest request = new RestRequest("https://localhost:7091/api/blog/", Method.Delete);
+            RestRequest request = new RestRequest($"https://localhost:7091/api/blog/{id}", Method.Delete);
             RestClient client = new RestClient();
             //var response = await client.DeleteAsync(request);
             var response = await client.ExecuteAsync(request);
