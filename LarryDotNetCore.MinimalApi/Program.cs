@@ -1,16 +1,25 @@
 using LarryDotNetCore.MinimalApi;
 using LarryDotNetCore.MinimalApi.Features.Blog;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    options.SerializerOptions.PropertyNamingPolicy = null;
+});
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<AppDBContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
+    string? connectionString = builder.Configuration.GetConnectionString("DbConnection");
+    option.UseSqlServer(connectionString);
 },
 ServiceLifetime.Transient,
 ServiceLifetime.Transient);

@@ -15,6 +15,7 @@ namespace LarryDotNetCore.MVCApp.Controllers
             //_httpClient.BaseAddress = new Uri(_configuration.GetSection("RestApiUrl").Value!); // use this cuz program.cs mhr baseAddress no declare lote htr lh
         }
 
+        [ActionName("Index")]
         public async Task<IActionResult> Index()
         {
             BlogListResponseModel model = new BlogListResponseModel();
@@ -24,7 +25,21 @@ namespace LarryDotNetCore.MVCApp.Controllers
                 string JsonStr = await response.Content.ReadAsStringAsync();
                 model = JsonConvert.DeserializeObject<BlogListResponseModel>(JsonStr)!;
             }
-            return View("~/Views/BlogRefit/Index.cshtml", model);
+            return View("BlogIndex", model);
+        }
+
+        [ActionName("Create")]
+        public IActionResult BlogCreate()
+        {
+            return View("BlogCreate");
+        }
+
+        [HttpPost]
+        [ActionName("Save")]
+        public async Task<IActionResult> BlogSave(BlogDataModel reqModel)
+        {
+
+            return Redirect("/bloghttpclient");
         }
     }
 }
