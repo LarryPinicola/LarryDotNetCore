@@ -1,6 +1,8 @@
 ﻿using LarryDotNetCore.MVCApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LarryDotNetCore.MVCApp.Controllers
 {
@@ -38,7 +40,55 @@ namespace LarryDotNetCore.MVCApp.Controllers
         [ActionName("Save")]
         public async Task<IActionResult> BlogSave(BlogDataModel reqModel)
         {
+            string JsonBlog = JsonConvert.SerializeObject(reqModel);
+            HttpContent httpContent = new StringContent(JsonBlog, Encoding.UTF8, Application.Json);
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.PostAsync("api/blog/", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr)!;
+            }
+            return Redirect("/bloghttpclient");
+        }
 
+        [ActionName("Edit")]
+        public async Task<IActionResult> BlogEdit(int id)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"api/blog/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+                return View("BlogEdit", model);
+            }
+            return Redirect("/bloghttpclient");
+        }
+
+        [HttpPost]
+        [ActionName("Update")]
+        public async Task<IActionResult> BlogUpdate(int id, BlogDataModel reqModel)
+        {
+            string JsonBlog = JsonConvert.SerializeObject(reqModel);
+            HttpContent httpContent = new StringContent(JsonBlog, Encoding.UTF8, Application.Json);
+            HttpResponseMessage response = await _httpClient.PutAsync($"/api/blog/{id}", httpContent);
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(jsonStr);
+            }
+            return Redirect("/bloghttpclient");
+        }
+
+        [ActionName("Delete")]
+        public async Task<IActionResult> BlogDelete(int id)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"/api/blog/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string JsonStr = await response.Content.ReadAsStringAsync();
+                var model = JsonConvert.DeserializeObject<BlogResponseModel>(JsonStr);
+            }
             return Redirect("/bloghttpclient");
         }
     }

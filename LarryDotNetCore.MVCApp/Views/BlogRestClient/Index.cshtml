@@ -1,23 +1,17 @@
 ﻿@model BlogListResponseModel
 @{
-    ViewData["Title"] = "BlogRefit";
+    ViewData["Title"] = "BlogRestClient";
     int count = 0;
 }
-
-<h4>
-    <a href="/blogrefit/create" class="btn btn-success">
-        <i class="fa-solid fa-plus"></i>
-    </a> Blog List
-</h4>
 
 <table class="table">
     <thead>
         <tr>
-            <th></th>
-            <th scope="col">#</th>
+            <th scope="col">No</th>
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Content</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +22,16 @@
                 <td>@item.Blog_Title</td>
                 <td>@item.Blog_Author</td>
                 <td>@item.Blog_Content</td>
+                <td>
+                    <a class="btn btn-warning" href="/blogrestclient/edit?id=@item.Blog_Id">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a class="btn btn-danger" href="/blogrestclient/delete?id=@item.Blog_Id">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </td>
             </tr>
+
         }
     </tbody>
 </table>
