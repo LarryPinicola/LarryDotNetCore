@@ -36,6 +36,22 @@ namespace LarryDotNetCore.MinimalApi.Features.Blog
             })
                 .WithName("CreateBlog")
                 .WithOpenApi();
+
+            // UpdateBlog
+            app.MapPut("/blog/{id}", async ([FromServices] AppDBContext db, int id, BlogDataModel blog) =>
+            {
+                var currentBlog = await db.Blogs.FindAsync(id);
+                if (currentBlog == null)
+                {
+                    return Results.NotFound("Data Not Found");
+                }
+                int result = await db.SaveChangesAsync();
+                string message = result > 0 ? "Update Successful" : "Update Failed";
+                return Results.Ok(new BlogResponseModel
+                { Data = blog, Message = message, IsSuccess = result > 0, });
+            })
+                .WithName("UpdateBlog")
+                .WithOpenApi();
         }
     }
 }
