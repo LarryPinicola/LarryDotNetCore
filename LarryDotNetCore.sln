@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.ThemeMVCApp", "dotNetCoreThemeMVC\LarryDotNetCore.ThemeMVCApp.csproj", "{B5E75716-36BB-4FB1-A023-52914DA0EB41}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.MVCApp", "LarryDotNetCore.MVCApp\LarryDotNetCore.MVCApp.csproj", "{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.SessionWebApp", "LarryDotNetCore.SessionWebApp\LarryDotNetCore.SessionWebApp.csproj", "{FF4AA6F7-19AD-45AD-B26A-6ECA58F3AE90}"
@@ -24,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.DbFirstCons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.LoggingConsoleApp", "LarryDotNetCore.LoggingConsoleApp\LarryDotNetCore.LoggingConsoleApp.csproj", "{690FE2B7-0FF2-4D81-9CB2-179F1AC5D231}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LarryDotNetCore.ATMWebApp", "LarryDotNetCore.ATMWebApp\LarryDotNetCore.ATMWebApp.csproj", "{01267EE6-56F0-489F-8E2A-C9358E315318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.ATMWebApp", "LarryDotNetCore.ATMWebApp\LarryDotNetCore.ATMWebApp.csproj", "{01267EE6-56F0-489F-8E2A-C9358E315318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +38,6 @@ Global
 		{CC04AF24-0DC7-4AB1-94CC-490BF13CCE55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC04AF24-0DC7-4AB1-94CC-490BF13CCE55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC04AF24-0DC7-4AB1-94CC-490BF13CCE55}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5E75716-36BB-4FB1-A023-52914DA0EB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5E75716-36BB-4FB1-A023-52914DA0EB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5E75716-36BB-4FB1-A023-52914DA0EB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5E75716-36BB-4FB1-A023-52914DA0EB41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED197FB-03F1-48C0-B5EF-1BAF8F28A38A}.Release|Any CPU.ActiveCfg = Release|Any CPU
