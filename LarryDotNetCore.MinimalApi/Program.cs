@@ -1,40 +1,61 @@
 using LarryDotNetCore.MinimalApi;
 using LarryDotNetCore.MinimalApi.Features.Blog;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Text.Json.Serialization;
 
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.ConfigureHttpJsonOptions(options =>
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("/logs/myapp.txt", rollingInterval: RollingInterval.Year)
+    .CreateLogger();
+try
 {
-    options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    options.SerializerOptions.PropertyNamingPolicy = null;
-});
+    Log.Information("Starting web application");
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDBContext>(option =>
-{
-    string? connectionString = builder.Configuration.GetConnectionString("DbConnection");
-    option.UseSqlServer(connectionString);
-},
-ServiceLifetime.Transient,
-ServiceLifetime.Transient);
+    builder.Host.UseSerilog();
 
-var app = builder.Build();
+    builder.Services.ConfigureHttpJsonOptions(options =>
+    {
+        options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.SerializerOptions.PropertyNamingPolicy = null;
+    });
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    // Add services to the container.
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    builder.Services.AddDbContext<AppDBContext>(option =>
+    {
+        string? connectionString = builder.Configuration.GetConnectionString("DbConnection");
+        option.UseSqlServer(connectionString);
+    },
+    ServiceLifetime.Transient,
+    ServiceLifetime.Transient);
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.AddBlogService();
+
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.AddBlogService();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

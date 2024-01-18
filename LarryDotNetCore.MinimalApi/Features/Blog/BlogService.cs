@@ -10,7 +10,7 @@ namespace LarryDotNetCore.MinimalApi.Features.Blog
         public static void AddBlogService(this IEndpointRouteBuilder app)
         {
             // ReadBlogs
-            app.MapGet("/blog/{pageNo}/{pageSize}", async ([FromServices] AppDBContext db, int pageNo, int pageSize) =>
+            app.MapGet("/blog/{pageNo}/{pageSize}", async ([FromServices] AppDBContext db, [FromServices] ILogger<Program> _logger, int pageNo, int pageSize) =>
             {
                 return await db.Blogs
                 .AsNoTracking()
