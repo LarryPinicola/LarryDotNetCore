@@ -1,8 +1,8 @@
-﻿using LarryDotNetCore.AtmWebApp.Models;
+﻿using LarryDotNetCore.ATMWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace LarryDotNetCore.AtmWebApp.Controllers
+namespace LarryDotNetCore.ATMWebApp.Controllers
 {
     public class HomeController : Controller
     {

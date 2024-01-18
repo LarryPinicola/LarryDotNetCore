@@ -1,4 +1,4 @@
-namespace LarryDotNetCore.AtmWebApp.Models
+namespace LarryDotNetCore.ATMWebApp.Models
 {
     public class ErrorViewModel
     {

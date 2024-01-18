@@ -1,28 +1,41 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LarryDotNetCore.AtmWebApp.Models
+namespace LarryDotNetCore.ATMWebApp.Models
 {
-    [Table("tbl_atm")]
+    [Table("Tbl_Atm")]
     public class AtmDataModel
     {
         [Key]
-        [Column("card_Id")]
-        public int CardId { get; set; }
+        [Column("UserId")]
+        public int UserId { get; set; }
 
-        [Column("cardNum")]
-        public double CardNum { get; set; }
-
-        [Column("card_pin")]
-        public int CardPin { get; set; }
-
-        [Column("card_firstName")]
+        [Column("FirstName")]
         public string FirstName { get; set; }
 
-        [Column("card_lastName")]
+        [Column("LastName")]
         public string LastName { get; set; }
 
-        [Column("card_balance")]
-        public double Balance { get; set; }
+        [Column("CardNumber")]
+        public string CardNumber { get; set; }
+
+        [Column("Pin")]
+        public int Pin { get; set; }
+
+        [Column("Balance")]
+        public float Balance { get; set; }
+    }
+
+    public class AtmMessageModel
+    {
+        public AtmMessageModel(bool isSuccess, string message)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+        }
+
+        public bool IsSuccess { get; set; }
+
+        public string Message { get; set; }
     }
 }

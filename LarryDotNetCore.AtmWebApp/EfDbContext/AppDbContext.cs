@@ -1,14 +1,13 @@
-﻿using LarryDotNetCore.AtmWebApp.Models;
+﻿using LarryDotNetCore.ATMWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LarryDotNetCore.AtmWebApp.EfDbContext
+namespace LarryDotNetCore.ATMWebApp.EfDbContext
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AppDbContext(DbContextOptions options) : base(options)
         {
         }
-
         public DbSet<AtmDataModel> AtmData { get; set; }
     }
 }

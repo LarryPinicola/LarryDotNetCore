@@ -1,112 +1,170 @@
-﻿using LarryDotNetCore.AtmWebApp.EfDbContext;
-using LarryDotNetCore.AtmWebApp.Models;
+﻿using LarryDotNetCore.ATMWebApp.EfDbContext;
+using LarryDotNetCore.ATMWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LarryDotNetCore.AtmWebApp.Controllers
+namespace LarryDotNetCore.ATMWebApp.Controllers
 {
-    public class AtmController : Controller
+    public class ATMController : Controller
     {
         private readonly AppDbContext _context;
 
-        public AtmController(AppDbContext context)
+        public ATMController(AppDbContext context)
         {
             _context = context;
         }
 
-        [ActionName("Index")]
-        public IActionResult AtmIndex()
+        #region Login
+        public IActionResult Login()
         {
-            List<AtmDataModel> lst = _context.AtmData.ToList();
-            return View("AtmIndex", lst);
-        }
-
-        [ActionName("Create")]
-        public async Task<IActionResult> AtmCreate()
-        {
-            return Redirect("AtmCreate");
+            return View();
         }
 
         [HttpPost]
-        [ActionName("Save")]
-        public async Task<IActionResult> AtmSave(AtmDataModel reqModel)
+        public async Task<IActionResult> Login(AtmDataModel model)
+        {
+            var user = await _context.AtmData
+                .Where(i => i.CardNumber == model.CardNumber && i.Pin == model.Pin)
+                .FirstOrDefaultAsync();
+            if (user != null)
+            {
+                HttpContext.Session.SetInt32("UserId", user.UserId);
+                return RedirectToAction("MainMenu");
+            }
+            ViewData["Error"] = "Invalid Card Number or Card Pin.";
+            return View();
+        }
+        #endregion
+
+        #region Register
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(AtmDataModel reqModel)
         {
             await _context.AtmData.AddAsync(reqModel);
             var result = await _context.SaveChangesAsync();
-            var message = result > 0 ? "Saving Successful" : "Saving Failed";
+            string message = result > 0 ? "Register Successful." : "Register Failed.";
             TempData["Message"] = message;
             TempData["IsSuccess"] = result > 0;
-            return Redirect("/atm");
+            AtmMessageModel model = new AtmMessageModel(result > 0, message);
+            return Json(model);
         }
+        #endregion
 
-        [ActionName("Withdrawl")]
-        public IActionResult AtmWithdrawl()
+        #region List
+        public async Task<IActionResult> List()
         {
-            return View("AtmWithdrawl");
+            var users = await _context.AtmData.ToListAsync();
+            return View(users);
         }
+        #endregion
 
-        [HttpPost]
-        [ActionName("Withdrawl")]
-        public async Task<IActionResult> AtmWithdrawl(AtmDataModel reqModel)
-        {
-            var atm = await _context.AtmData.FirstOrDefaultAsync(x => x.CardNum == reqModel.CardNum && x.CardPin == reqModel.CardPin);
-            if (atm == null || reqModel.Balance <= 0 || reqModel.Balance > atm.Balance)
-            {
-                TempData["Message"] = "Nothing to Withdrawl, Sorry insufficient balance";
-                TempData["IsSuccess"] = false;
-                return View("AtmWithdrawl");
-            }
-            atm.Balance -= reqModel.Balance;
-            _context.AtmData.Update(atm);
-            var result = await _context.SaveChangesAsync();
-            var message = result > 0 ? $"Withdrawl Successful, {atm.Balance} left." : "Withdrawl Failed.";
-            TempData["Message"] = message;
-            TempData["IsSuccess"] = result > 0;
-            return Redirect("/atm");
-        }
-
-        [ActionName("Deposit")]
-        public IActionResult AtmDeposit()
-        {
-            return View("AtmDeposit");
-        }
-
-        [HttpPost]
-        [ActionName("Deposit")]
-        public async Task<IActionResult> AtmDeposit(AtmDataModel reqModel)
-        {
-            var atm = await _context.AtmData.FirstOrDefaultAsync(x => x.CardNum == reqModel.CardNum && x.CardPin == reqModel.CardPin);
-            if (atm is null)
-            {
-                TempData["Message"] = "Incorrect CardPin or Number";
-                TempData["IsSuccess"] = false;
-                return View("AtmDeposit");
-            }
-            atm.Balance += reqModel.Balance;
-            _context.AtmData.Update(atm);
-            var result = await _context.SaveChangesAsync();
-            var message = result > 0 ? $"Deposit Successful, {atm.Balance} left." : "Deposit Failed";
-            TempData["Message"] = message;
-            TempData["IsSuccess"] = result > 0;
-            return Redirect("/atm");
-        }
-
-        [ActionName("Check")]
-        public IActionResult AtmCheck()
-        {
-            return View("AtmCheck");
-        }
-
+        #region MainMenu
         [HttpGet]
-        [ActionName("Check")]
-        public async Task<IActionResult> AtmCheck(AtmDataModel reqModel)
+        public IActionResult MainMenu()
         {
-            var atm = await _context.AtmData.FirstOrDefaultAsync(x => x.CardNum == reqModel.CardNum && x.CardPin == reqModel.CardPin);
-            if (atm is not null)
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var user = _context.AtmData.FirstOrDefault(x => x.UserId == userId);
+            if (user != null)
             {
-                return View("AtmCheckResult", atm);
+                return View("Login");
             }
-            return View("AtmCheck");
+            TempData["Message"] = "No data found.";
+            TempData["IsSuccess"] = false;
+            return RedirectToAction("Login");
         }
+        #endregion
+
+        #region Withdrawal
+        public IActionResult Withdrawal()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var user = _context.AtmData.FirstOrDefault(x => x.UserId == userId);
+            if (user != null)
+            {
+                return View(user);
+            }
+            TempData["Message"] = "No Data found.";
+            TempData["IsSuccess"] = false;
+            return RedirectToAction("MainMenu");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Withdrawal(AtmDataModel reqModel)
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var user = await _context.AtmData.FirstOrDefaultAsync(x => x.UserId == userId);
+            if (user is null)
+            {
+                TempData["Message"] = "No data found.";
+                TempData["IsSuccess"] = false;
+                return Json(user);
+            }
+            else if (user.Balance < reqModel.Balance)
+            {
+                TempData["Message"] = "Withdrawl failed. Insufficient Balance";
+                TempData["IsSuccess"] = false;
+                return Json(user);
+            }
+            user.Balance -= reqModel.Balance;
+            _context.AtmData.Entry(user).State = EntityState.Modified;
+            int result = _context.SaveChanges();
+            string message = result > 0 ? "Withdrawal Successful." : "Withdrawl Failed.";
+            AtmMessageModel model = new AtmMessageModel(result > 0, message);
+            return Json(model);
+        }
+        #endregion
+
+        #region Deposit
+        [HttpGet]
+        public IActionResult Deposit(int id)
+        {
+            var user = _context.AtmData.FirstOrDefault(x => x.UserId == id);
+            return View("Deposit", user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Deposit(int id, AtmDataModel reqModel)
+        {
+            var user = await _context.AtmData.FirstOrDefaultAsync(x => x.UserId == id);
+            if (user == null)
+            {
+                TempData["Message"] = "No data found.";
+                TempData["IsSuccess"] = false;
+                return Json(user);
+            }
+            if (reqModel.Balance <= 0)
+            {
+                AtmMessageModel messageModel = new AtmMessageModel(false, "Fill the money first, please");
+                return Json(messageModel);
+            }
+            user.Balance += reqModel.Balance;
+            _context.AtmData.Entry(user).State = EntityState.Modified;
+            var result = _context.SaveChanges();
+            string message = result > 0 ? "Deposit Successful." : "Deposit Failed.";
+            AtmMessageModel model = new AtmMessageModel(result > 0, message);
+            return Json(model);
+        }
+        #endregion
+
+        #region CheckBalance
+        [HttpGet]
+        public async Task<IActionResult> CheckBalance()
+        {
+            var userId = HttpContext.Session.GetInt32("UserId");
+            var user = _context.AtmData.FirstOrDefault(x => x.UserId == userId);
+            if (user is null)
+            {
+                TempData["Message"] = "No data found.";
+                TempData["IsSuccess"] = false;
+                return RedirectToAction("MainMenu");
+            }
+            ViewData["Balance"] = user.Balance;
+            return View(user);
+        }
+        #endregion
     }
 }
