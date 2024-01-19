@@ -71,7 +71,7 @@ namespace LarryDotNetCore.ATMWebApp.Controllers
             var user = _context.AtmData.FirstOrDefault(x => x.UserId == userId);
             if (user != null)
             {
-                return View("Login");
+                return View(user);
             }
             TempData["Message"] = "No data found.";
             TempData["IsSuccess"] = false;
@@ -135,11 +135,6 @@ namespace LarryDotNetCore.ATMWebApp.Controllers
                 TempData["Message"] = "No data found.";
                 TempData["IsSuccess"] = false;
                 return Json(user);
-            }
-            if (reqModel.Balance <= 0)
-            {
-                AtmMessageModel messageModel = new AtmMessageModel(false, "Fill the money first, please");
-                return Json(messageModel);
             }
             user.Balance += reqModel.Balance;
             _context.AtmData.Entry(user).State = EntityState.Modified;

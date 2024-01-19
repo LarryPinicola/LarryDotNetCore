@@ -1,0 +1,41 @@
+﻿@model AtmDataModel
+
+<div class="container">
+    <label>Withdrawal</label>
+
+    <form method="post" action="/ATM/Withdrawal/@Model.UserId">
+        <div>
+            <label for="Balance">Withdrawal Amount : </label>
+            <input type="text" id="Balance" name="amount" required />
+        </div>
+        <button type="button" class="btn btn-success" id="btnSave">Withdrawal</button>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+        $('#btnSave').click(function (e) {
+            e.preventDefault();
+
+            var l = Ladda.create(this);
+            l.start();
+
+            var _reqModel = {
+                Balance: $('#Balance').val(),
+            };
+
+            $.ajax({
+                url: '/ATM/Withdrawal/@Model.UserId',
+                type: 'POST',
+                data: _reqModel,
+                success: function (data) {
+                    l.stop();
+                    showMessage(data, "/ATM/MainMenu/@Model.UserId");
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            });
+        })
+    </script>
+}

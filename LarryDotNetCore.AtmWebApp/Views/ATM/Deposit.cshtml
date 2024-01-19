@@ -1,0 +1,47 @@
+﻿@model AtmDataModel
+
+<div class="container mt-5 shadow-lg p-2 rounded-2">
+    <h2 class="text-center">Deposit</h2>
+    <p>How much $ would you like to deposit?</p>
+
+    <form method="post" action="/ATM/Deposit/@Model.UserId" class="">
+        <div class="form-group">
+            <label class="mb-2" for="amount">Fill Your Deposit Amount</label>
+            <div class="input-group gap-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" id="amount" name="amount" required />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3" id="btnSave">Deposit</button>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+        $('btnSave').click(function (e) {
+            e.preventDefault();
+            var l = Ladda.create(this);
+            l.start();
+
+            var _reqModel = {
+                Balance: $('#Balance').val(),
+            };
+
+            $ajax({
+                url: '/ATM/Deposit/@Model.UserId',
+                type: 'POST',
+                data: _reqModel,
+                success: function (data) {
+                    l.stop();
+                    showMessage(data, "/ATM/MainMenu/@Model.UserId");
+                },
+                error: function (request, status, error) {
+                    console.log({ request, status, error });
+                }
+            });
+        })
+    </script>
+}

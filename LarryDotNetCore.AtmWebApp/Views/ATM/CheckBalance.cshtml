@@ -1,0 +1,22 @@
+﻿@model AtmDataModel
+@{
+    ViewData["Title"] = "Check Balance";
+}
+
+<div class="container">
+    <label>Balance</label>
+
+    <form method="get" action="/ATM/CheckBalance/@Model.UserId">
+        @if (ViewData["Balance"] is not null)
+        {
+            <p>Your current Balance : <strong>$@Convert.ToDecimal(ViewData["Balance"]).ToString("n2")</strong></p>
+        }
+        else
+        {
+            <p>Unable to retrieve balance.</p>
+        }
+
+        <a class="btn btn-primary" asp-controller="ATM" asp-action="CheckBalance" method="get">Refresh Balance</a>
+        <a class="btn btn-info" href="/ATM/MainMenu/@Model.UserId">Back to Main</a>
+    </form>
+</div>

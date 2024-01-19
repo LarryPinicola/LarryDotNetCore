@@ -23,7 +23,7 @@ namespace LarryDotNetCore.ATMWebApp.Models
         public int Pin { get; set; }
 
         [Column("Balance")]
-        public float Balance { get; set; }
+        public double Balance { get; set; }
     }
 
     public class AtmMessageModel

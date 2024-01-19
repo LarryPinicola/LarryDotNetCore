@@ -1,0 +1,26 @@
+﻿@model AtmDataModel
+
+<div class="container text-center mt-3 w-50 p-3">
+    <div class="mb-2">
+        <img src="~/img/mainmenu.jpg" class="rounded-2" style="width:70%;" />
+    </div>
+    <h3 class="">THE ATM APP</h3>
+    <div class="my-3 d-flex justify-content-center gap-5">
+        <p>User : <strong>@Model.FirstName @Model.LastName</strong></p>
+        <p>Card : <strong>@Model.CardNumber</strong></p>
+    </div>
+    <div class="d-flex justify-content-around text-uppercase">
+        <div>
+            <a class="btn btn-info" href="/ATM/Deposit/@Model.UserId">Deposit</a>
+        </div>
+        <div>
+            <a class="btn btn-primary" href="/ATM/Withdrawal/@Model.UserId>Withdrawal</a>
+        </div>
+        <div>
+            <a class="btn btn-success" href="/ATM/CheckBalance/@Model.UserId">Balance</a>
+        </div>
+        <div>
+            <a class="btn btn-danger" href="/ATM/login">Exit</a>
+        </div>
+    </div>
+</div>
