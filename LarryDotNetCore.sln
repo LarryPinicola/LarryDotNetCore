@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.LoggingCons
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarryDotNetCore.ATMWebApp", "LarryDotNetCore.ATMWebApp\LarryDotNetCore.ATMWebApp.csproj", "{01267EE6-56F0-489F-8E2A-C9358E315318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LarryDotNetCore.SignalRChatApp", "LarryDotNetCore.SignalRChatApp\LarryDotNetCore.SignalRChatApp.csproj", "{96F9B74B-B924-4CDE-9592-B573CA2369D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{01267EE6-56F0-489F-8E2A-C9358E315318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01267EE6-56F0-489F-8E2A-C9358E315318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01267EE6-56F0-489F-8E2A-C9358E315318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96F9B74B-B924-4CDE-9592-B573CA2369D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96F9B74B-B924-4CDE-9592-B573CA2369D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96F9B74B-B924-4CDE-9592-B573CA2369D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96F9B74B-B924-4CDE-9592-B573CA2369D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
