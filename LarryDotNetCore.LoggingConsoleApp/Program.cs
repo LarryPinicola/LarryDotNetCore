@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 Console.WriteLine("Hello, World!");
 
@@ -9,6 +10,10 @@ Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .WriteTo.Console()
     .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Hour)
+    .WriteTo
+    .MSSqlServer(
+        connectionString: "Server=.;Database=LarryDotNetCore;User ID=sa;Password=sa@123;Trust Server Certificate=True;",
+        sinkOptions: new MSSqlServerSinkOptions { TableName = "LogEvents", AutoCreateSqlTable = true })
     .CreateLogger();
 
 Log.Information("Hello New World!");
